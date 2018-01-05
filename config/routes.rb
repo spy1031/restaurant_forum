@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     
   end
   root "restaurants#index"
+  resources :users, only:[:show,:edit,:update]
   resources :categories, only: :show
   namespace :admin do
     resources :restaurants

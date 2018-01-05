@@ -40,7 +40,7 @@ namespace :dev  do
       end
     end
     puts "have created fake users"
-    puts "now you have #{Comment.count} users data"
+    puts "now you have #{Comment.count} comments data"
   end
 
 end
