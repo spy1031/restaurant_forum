@@ -4,8 +4,14 @@
       <h1><%= @restaurant.name %></h1>
     </div>
 
-    <div class="col-md-4">
-      <%= image_tag @restaurant.image, class:"img-responsive center-block" %>
+    <div class="col-md-4 ">
+      <div class="restaurant-item">
+      <%if !@restaurant.image?%>
+        <%= image_tag "https://www.theriverside.co.uk/images/Inside-Restaurant.jpg", class:"img-responsive center-block" %>
+      <% else%>
+       <%= image_tag @restaurant.image, class:"img-responsive center-block" %>
+      <% end %>
+      </div>
       <br>
       <div class="well">
         <ul class="list-unstyled">
