@@ -21,7 +21,8 @@ namespace :dev  do
 
     20.times do |i|
       User.create!(email: FFaker::Internet.email,
-      password: FFaker::Internet.password
+      password: FFaker::Internet.password,
+      name: FFaker::Name.first_name
       )
     end
     User.create(email: "root@gmail.com", password: "123456", role: "admin")
