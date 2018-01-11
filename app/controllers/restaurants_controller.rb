@@ -11,6 +11,11 @@ class RestaurantsController < ApplicationController
     
   end
 
+  def feeds
+    @recent_restaurants = Restaurant.order(created_at: :desc).limit(10)
+    @recent_comments = Comment.order(created_at: :desc).limit(10)
+  end
+
   private
   def set_restaurant
     @restaurant = Restaurant.find(params[:id])  
