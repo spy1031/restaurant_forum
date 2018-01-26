@@ -28,6 +28,7 @@ class RestaurantsController < ApplicationController
   def unfavorite
     favorite = Favorite.where(restaurant: @restaurant, user: current_user).first
     favorite.destroy
+    redirect_back(fallback_location: root_path)
   end
   private
   def set_restaurant
