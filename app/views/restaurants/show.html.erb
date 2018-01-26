@@ -28,13 +28,10 @@
 
     <div class="col-md-8">
       <%= simple_format @restaurant.description %>
-      <br>
+      <hr>
       <%= link_to "Dashboard",dashboard_restaurant_path(@restaurant),class: "btn btn-primary"%>
-      <%if !@restaurant.is_favorited?(current_user)%>
-      <%= link_to "Favorite",favorite_restaurant_path(@restaurant),method: :post,class: "btn btn-primary"%>
-      <%else%>
-      <%= link_to "Unfavorite",unfavorite_restaurant_path(@restaurant),method: :post,class: "btn btn-primary"%>
-      <%end%>
+      <%= render partial: "shared/favorite", locals: {restaurant: @restaurant}%>
+
     </div>
 
     <div class="clearfix"></div>
