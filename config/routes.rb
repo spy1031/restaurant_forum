@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       get :dashboard # 瀏覽個別餐廳的 Dashboard
       post :favorite
       post :unfavorite
+      post :like
+      post :unlike
     end
   end
   root "restaurants#index"
