@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     
     collection do
       get :feeds # 瀏覽所有餐廳的最新動態
+      get :ranks # 瀏覽餐廳排名
     end
 
     
