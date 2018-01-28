@@ -22,11 +22,13 @@ class RestaurantsController < ApplicationController
 
   def favorite
     @restaurant.favorites.create!(user: current_user)
+    
     redirect_back(fallback_location: root_path)
   end
 
   def unfavorite
     favorite = Favorite.where(restaurant: @restaurant, user: current_user).first
+
     favorite.destroy
     redirect_back(fallback_location: root_path)
   end
@@ -43,8 +45,12 @@ class RestaurantsController < ApplicationController
   end
 
   def ranks
-    
-    @favorites_count = @restaurant.get_favorites_count
+    Restaurant.all.each do |restaurant|
+      restaurant.favorites_count = restaurant.favorited_users.count
+      restaurant.save
+    end
+
+    @favorites_restaurants = Restaurant.order(favorites_count: :desc).limit(10)
   end
 
   private

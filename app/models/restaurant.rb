@@ -15,7 +15,12 @@ class Restaurant < ApplicationRecord
   end
 
 
-  def get_favorites_count
-    self.favorited_users.count
+  def set_favorites_count
+    Restaurant.all.each do |restaurant|
+      restaurant.favorites_count = restaurant.favorited_users.count
+      restaurant.save
+    end
+
+    
   end
 end
