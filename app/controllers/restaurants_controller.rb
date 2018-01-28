@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :dashboard, :favorite, :unfavorite, :like, :unlike]
+  before_action :set_restaurant, only: [:show, :dashboard, :favorite, :unfavorite, :like, :unlike,:ranks]
   def index
     @restaurants = Restaurant.page(params[:page]).per(9)
     @categories = Category.all
@@ -40,6 +40,11 @@ class RestaurantsController < ApplicationController
     like = Like.where(restaurant: @restaurant, user: current_user).first
     like.destroy
     redirect_back(fallback_location: root_path)
+  end
+
+  def ranks
+    
+    @favorites_count = @restaurant.get_favorites_count
   end
 
   private
