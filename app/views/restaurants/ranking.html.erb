@@ -1,0 +1,48 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" ><%= link_to "首頁",root_path%></li>
+  <li role="presentation" ><%= link_to "最新動態",feeds_restaurants_path%></li>
+  <li role="presentation" class="active"><a href="#">人氣餐廳（TOP10）</a></li>
+</ul>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      
+      <div class="page header">
+        <h1>Top 10 人氣餐廳<small>(Favorites)</small></h1>
+      </div>
+
+      <% @favorites_restaurants.each do |restaurant|%>
+        <div class="ranking-item">
+          <div class="col-md-3">
+            <%= link_to restaurant_path(restaurant) do%>
+              <%if !restaurant.image?%>
+                <%= image_tag "https://www.theriverside.co.uk/images/Inside-Restaurant.jpg", class:"img-responsive center-block" %>
+              <% else%>
+               <%= image_tag restaurant.image, class:"img-responsive center-block" %>
+              <% end %>
+            <% end %>
+          </div>
+          
+
+          <div class="col-md-9">
+            <h3>
+              <%= link_to restaurant.name ,restaurant_path(restaurant) %>
+              <span class="label label-default">收藏數：<%= restaurant.favorites_count %></span>    
+            </h3>
+            
+            <p><%= truncate(restaurant.description, length: 200)%></p>
+            <%= render partial: "shared/favorite", locals: {restaurant: restaurant}%>
+            
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+  
+  
+  
+</div>
