@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show,:edit,:update]
+  
+  def index
+    @users = User.all
+  end
+
   def show
 
     @commented_restaurants = @user.restaurants.uniq
@@ -24,6 +29,8 @@ class UsersController < ApplicationController
       flash[:alert] = "profile was failed to update"
     end
   end
+
+
 
   private
   def user_params
