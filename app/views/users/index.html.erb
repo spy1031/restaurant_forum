@@ -1,21 +1,29 @@
-<ul>
-  <% @users.each do |user|%>
-    
-      
-    
-
-    <li>
-      <%= user.name%>
-      <% if user != current_user%>
-        <% if current_user.followships.where(following_id: user.id).first %>
-          <%= link_to 'UnFollow', followship_path(user),method: :delete %>
-        <% else %>
-          <%= link_to 'Follow', followships_path(following_id: user.id),method: :post %>
-        <% end %>
-        
-        
-      <% end %>
-    </li>
-
-  <% end %>
+<ul class="nav nav-tabs">
+  <li role="presentation" ><%= link_to "首頁",root_path%></li>
+  <li role="presentation" ><%= link_to "最新動態",feeds_restaurants_path%></li>
+  <li role="presentation" ><%= link_to "人氣餐廳（TOP10）",feeds_restaurants_path%></li>
+  <li role="presentation" class="active"><a href="#">美食達人</a></li>
 </ul>
+<br>
+<div class="container">
+  <div class="row">    
+    <% @users.each do |user|%>
+      <div class="col-md-3 text-center user-item">
+        <%= link_to user_path(user) do%>
+          <%if !user.avatar?%>
+            <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg", class:"img-responsive center-block" %>
+          <% else%>
+           <%= image_tag user.avatar, class:"img-responsive center-block" %>
+          <% end %>
+          <h4><%= user.name%></h4>
+        <% end %>
+
+
+        <%= render partial: "shared/follow",locals:{user: user} %>
+
+          
+        
+      </div>
+    <% end %>   
+  </div>
+</div>
