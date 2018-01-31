@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row">
     
@@ -20,28 +21,97 @@
     <div class="clearfix"></div>
   </div>
   <br>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><%= @commented_restaurants.count%>已評論餐廳</h3>
+
+
+
+  <br>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @user_followings.count%> 追蹤名單</h3>
+      </div>
+      <ul class="list-group">
+      <% @user_followings.each do |user| %>
+        <li class="list-group-item">
+          <%= link_to user_path(user) do%>       
+              <%if !user.avatar?%>
+                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+              <% else%>
+                <%= image_tag user.avatar, class:"img-circle " %>
+              <% end %>         
+              <%= link_to user.name ,user_path(user) %>
+          <% end %>      
+        </li>
+      <% end %>
+      </ul>
     </div>
-    <div class="panel-body">
-    <% @commented_restaurants.each do |restaurant| %>
-        
-      <div class="my-restaurant">
-      <%= link_to restaurant_path(restaurant) do%>
-        <%if !restaurant.image?%>
-          <%= image_tag "https://www.theriverside.co.uk/images/Inside-Restaurant.jpg", class:"img-responsive img-rounded" %>
-        <% else%>
-          <%= image_tag restaurant.image, class:"img-responsive center-block" %>
-        <% end %>
-      <% end %>  
-        <div class="caption">
-        <h3><%= link_to restaurant.name ,restaurant_path(restaurant) %></h3>
-        
-        </div>
-        </div>
-      
-    <% end %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @user_followers.count%> 粉絲</h3>
+      </div>
+      <ul class="list-group">
+      <% @user_followers.each do |user| %>
+        <li class="list-group-item">
+          <%= link_to user_path(user) do%>         
+              <%if !user.avatar?%>
+                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+              <% else%>
+                <%= image_tag user.avatar, class:"img-circle " %>
+              <% end %>           
+              <%= link_to user.name ,user_path(user) %>
+          <% end %>      
+        </li>
+      <% end %>
+      </ul>
     </div>
   </div>
+
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @commented_restaurants.count%> 已評論餐廳</h3>
+      </div>
+      <div class="panel-body">
+        <% @commented_restaurants.each do |restaurant| %>
+          <div class="my-restaurant col-md-3">
+            <%= link_to restaurant_path(restaurant) do%>
+              <%if !restaurant.image?%>
+                <%= image_tag "https://www.theriverside.co.uk/images/Inside-Restaurant.jpg", class:"img-responsive img-rounded" %>
+              <% else%>
+                <%= image_tag restaurant.image, class:"img-responsive img-rounded" %>
+              <% end %>
+            <% end %>
+            <div class="caption">
+              <h3><%= link_to restaurant.name ,restaurant_path(restaurant) %></h3>       
+            </div>
+          </div>
+        <% end %>   
+      </div>  
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @favorited_restaurants.count%> 收藏餐廳</h3>
+      </div>
+      <div class="panel-body">
+        <% @favorited_restaurants.each do |restaurant| %>       
+          <div class="my-restaurant col-md-3">
+            <%= link_to restaurant_path(restaurant) do%>
+              <%if !restaurant.image?%>
+                <%= image_tag "https://www.theriverside.co.uk/images/Inside-Restaurant.jpg", class:"img-responsive img-rounded" %>
+              <% else%>
+                <%= image_tag restaurant.image, class:"img-responsive img-rounded" %>
+              <% end %>
+            <% end %>  
+            <div class="caption">
+              <h3><%= link_to restaurant.name ,restaurant_path(restaurant) %></h3>
+            </div>
+          </div>  
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </div>

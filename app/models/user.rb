@@ -14,9 +14,9 @@ class User < ApplicationRecord
   has_many :followings, through: :followships
 
 
-  has_many :inverse_folloships ,class_name: "Followships",
+  has_many :inverse_followships ,class_name: "Followship",
   foreign_key: "following_id"
-  has_many :follower, through: :inverse_folloships, source: :user
+  has_many :followers, through: :inverse_followships, source: :user
 
   mount_uploader :avatar, AvatarUploader
   def admin?
