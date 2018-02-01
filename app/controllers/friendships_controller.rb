@@ -20,7 +20,7 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    @friendship = current_user.friendships.where(friend_id: params[:id]).first
+    @friendship = current_user.friend_invites.where(friend_id: params[:id]).first
     @inverse_friendship = Friendship.where(user_id: params[:id],friend_id: current_user.id).first
     @friendship.status =3
     @inverse_friendship.status =3

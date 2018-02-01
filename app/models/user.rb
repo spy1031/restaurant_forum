@@ -21,7 +21,10 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   
   has_many :friend_invites, ->{where status: 2},class_name: "Friendship", dependent: :destroy 
-  has_many :invites, through: :friend_invites, source: :user
+  has_many :invites, through: :friend_invites, source: :friend
+
+  has_many :friend_requests, ->{where status: 1},class_name: "Friendship",dependent: :destroy
+  has_many :requests, through: :friend_requests, source: :friend
   mount_uploader :avatar, AvatarUploader
   def admin?
     self.role == "admin"
@@ -32,8 +35,12 @@ class User < ApplicationRecord
   end
   #藉由status來判斷 1.已提出友好邀請 2.可同意好友邀請 3.已成為好友
   def is_friend?(user)
-    if self.friends.include?(user)
-      return self.friendships.where(friend_id: user.id).first.status
+    if self.requests.include?(user)
+      return 1
+    elsif self.invites.include?(user) 
+      return 2
+    elsif self.friends.include?(user)
+      return 3
     end
   end
 end

@@ -100,7 +100,7 @@
               <%if !user.avatar?%>
                 <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
               <% else%>
-                <%= image_tag user.avatar, class:"img-circle " %>
+                <%= image_tag user.avatar, height: 30,width: 30 ,class:"img-circle" %>
               <% end %>           
               <%= link_to user.name ,user_path(user) %>
           <% end %>      
@@ -108,7 +108,7 @@
       <% end %>
       </ul>
     </div>
-
+    
   </div>
 
   <div class="col-md-8">
