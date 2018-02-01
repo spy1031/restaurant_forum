@@ -22,8 +22,6 @@
   </div>
   <br>
 
-
-
   <br>
 
   <div class="col-md-4">
@@ -66,6 +64,51 @@
       <% end %>
       </ul>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          
+          <%= @user_friends.count%> 好友
+        </h3>
+      </div>
+      <ul class="list-group">
+      <% @user_friends.each do |user| %>
+        <li class="list-group-item">
+          <%= link_to user_path(user) do%>         
+              <%if !user.avatar?%>
+                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+              <% else%>
+                <%= image_tag user.avatar, class:"img-circle " %>
+              <% end %>           
+              <%= link_to user.name ,user_path(user) %>
+          <% end %>      
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= @friend_invites.count%> 好友邀請</h3>
+      </div>
+      <ul class="list-group">
+      <% @friend_invites.each do |user| %>
+        <li class="list-group-item">
+          <%= link_to user_path(user) do%>         
+              <%if !user.avatar?%>
+                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+              <% else%>
+                <%= image_tag user.avatar, class:"img-circle " %>
+              <% end %>           
+              <%= link_to user.name ,user_path(user) %>
+          <% end %>      
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
   </div>
 
   <div class="col-md-8">

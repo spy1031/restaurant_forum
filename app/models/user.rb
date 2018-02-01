@@ -17,12 +17,11 @@ class User < ApplicationRecord
   has_many :inverse_followships ,class_name: "Followship", foreign_key: "following_id"
   has_many :followers, through: :inverse_followships, source: :user
 
-  has_many :friendships, dependent: :destroy
+  has_many :friendships, ->{where status: 3}, dependent: :destroy 
   has_many :friends, through: :friendships
-  has_many :inverse_friendships, class_name: "friendship",foreign_key: "friend_id"
-  has_many :friends_invite, through: :inverse_friendships,source: :user
-
-
+  
+  has_many :friend_invites, ->{where status: 2},class_name: "Friendship", dependent: :destroy 
+  has_many :invites, through: :friend_invites, source: :user
   mount_uploader :avatar, AvatarUploader
   def admin?
     self.role == "admin"
