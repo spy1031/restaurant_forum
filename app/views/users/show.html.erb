@@ -4,7 +4,11 @@
     
 
     <div class="col-md-4">
-      <%= image_tag @user.avatar, class:"img-responsive img-rounded" %>
+      <%if !@user.avatar?%>
+        <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg", class:"img-responsive center-block img-rounded" %>
+      <% else%>
+       <%= image_tag @user.avatar, class:"img-responsive center-block img-rounded" %>
+      <% end %>
       
     </div>
 
@@ -14,7 +18,9 @@
       <%= simple_format @user.intro %>
       <% if @user.email == current_user.email %>
         <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-primary" %>
-        <% end %>
+      <% else %>
+         <%= render partial: "shared/friend",locals:{user: @user} %>
+      <% end %>
     </div>
 
 
@@ -56,50 +62,6 @@
               <%if !user.avatar?%>
                 <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
               <% else%>
-                <%= image_tag user.avatar, class:"img-circle " %>
-              <% end %>           
-              <%= link_to user.name ,user_path(user) %>
-          <% end %>      
-        </li>
-      <% end %>
-      </ul>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          
-          <%= @user_friends.count%> 好友
-        </h3>
-      </div>
-      <ul class="list-group">
-      <% @user_friends.each do |user| %>
-        <li class="list-group-item">
-          <%= link_to user_path(user) do%>         
-              <%if !user.avatar?%>
-                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
-              <% else%>
-                <%= image_tag user.avatar, class:"img-circle " %>
-              <% end %>           
-              <%= link_to user.name ,user_path(user) %>
-          <% end %>      
-        </li>
-      <% end %>
-      </ul>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= @friend_invites.count%> 好友邀請</h3>
-      </div>
-      <ul class="list-group">
-      <% @friend_invites.each do |user| %>
-        <li class="list-group-item">
-          <%= link_to user_path(user) do%>         
-              <%if !user.avatar?%>
-                <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
-              <% else%>
                 <%= image_tag user.avatar, height: 30,width: 30 ,class:"img-circle" %>
               <% end %>           
               <%= link_to user.name ,user_path(user) %>
@@ -109,6 +71,52 @@
       </ul>
     </div>
     
+    <% if @user.email == current_user.email %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            
+            <%= @user_friends.count%> 好友
+          </h3>
+        </div>
+        <ul class="list-group">
+        <% @user_friends.each do |user| %>
+          <li class="list-group-item">
+            <%= link_to user_path(user) do%>         
+                <%if !user.avatar?%>
+                  <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+                <% else%>
+                  <%= image_tag user.avatar, height: 30,width: 30 ,class:"img-circle"%>
+                <% end %>           
+                <%= link_to user.name ,user_path(user) %>
+            <% end %>      
+          </li>
+        <% end %>
+        </ul>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= @friend_invites.count%> 好友邀請</h3>
+        </div>
+        <ul class="list-group">
+        <% @friend_invites.each do |user| %>
+          <li class="list-group-item">
+            <%= link_to user_path(user) do%>         
+                <%if !user.avatar?%>
+                  <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg",height: 30,width: 30 ,class:"img-circle" %>
+                <% else%>
+                  <%= image_tag user.avatar, height: 30,width: 30 ,class:"img-circle" %>
+                <% end %>           
+                <%= link_to user.name ,user_path(user) %>
+                <%= link_to '同意好友邀請', friendship_path(user),method: :put ,class: "btn btn-warning"%>
+            <% end %>      
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-md-8">
