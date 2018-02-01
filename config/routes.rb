@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     root "restaurants#index"
   end
 
+
+
   resources :followships, only: [:create, :destroy]
-  resources :friendships, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy,:update] 
+
 end

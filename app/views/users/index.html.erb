@@ -11,17 +11,21 @@
       <div class="col-md-3 text-center user-item">
         <%= link_to user_path(user) do%>
           <%if !user.avatar?%>
-            <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg", class:"img-responsive center-block" %>
+            <%= image_tag "https://www.adjust.com/new-assets/images/site-images/interface/user.svg", class:"img-responsive center-block img-rounded" %>
           <% else%>
-           <%= image_tag user.avatar, class:"img-responsive center-block" %>
+           <%= image_tag user.avatar, class:"img-responsive center-block img-rounded" %>
           <% end %>
           <h4><%= user.name%></h4>
         <% end %>
         <% if user != current_user%>
-          <% if current_user.is_friend?(user) %>
-            <%= link_to 'Delete friend', friendship_path(user),method: :delete ,class: "btn btn-danger"%>
+          <% if current_user.is_friend?(user) ==3 %>
+            <%= link_to '刪除好友', friendship_path(user),method: :delete ,class: "btn btn-danger"%>
+            <% elsif current_user.is_friend?(user) ==2 %>
+            <%= link_to '同意好友邀請', friendship_path(user),method: :put ,class: "btn btn-success"%>
+          <% elsif current_user.is_friend?(user) ==1 %>
+            <%= link_to '取消好友邀請', friendship_path(user),method: :delete ,class: "btn btn-danger"%>
           <% else %>
-            <%= link_to 'Add friend', friendships_path(friend_id: user.id),method: :post,class: "btn btn-success" %>
+            <%= link_to '提出好友邀請', friendships_path(friend_id: user.id),method: :post,class: "btn btn-success" %>
           <% end %>
         <% end %>
 

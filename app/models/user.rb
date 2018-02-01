@@ -19,7 +19,8 @@ class User < ApplicationRecord
 
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
-
+  has_many :inverse_friendships, class_name: "friendship",foreign_key: "friend_id"
+  has_many :friends_invite, through: :inverse_friendships,source: :user
 
 
   mount_uploader :avatar, AvatarUploader
@@ -30,8 +31,10 @@ class User < ApplicationRecord
   def is_following?(user)
     self.followings.include?(user)
   end
-
+  #藉由status來判斷 1.已提出友好邀請 2.可同意好友邀請 3.已成為好友
   def is_friend?(user)
-    self.friends.include?(user)
+    if self.friends.include?(user)
+      return self.friendships.where(friend_id: user.id).first.status
+    end
   end
 end
